@@ -29,6 +29,10 @@ struct HomeView: View {
         .overlay {
             if viewModel.isLoading && viewModel.videos.isEmpty {
                 LoadingView()
+            } else if !viewModel.isLoading && viewModel.videos.isEmpty && !viewModel.showError {
+                EmptyStateView {
+                    viewModel.retryLoading()
+                }
             }
         }
         .alert("Error", isPresented: $viewModel.showError) {
